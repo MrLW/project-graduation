@@ -1,0 +1,13 @@
+
+\.idea/
+
+node_modules/
+
+coverage/
+
+local.json
+package-lock\.json
+
+config\.js
+!model/config.js
+
