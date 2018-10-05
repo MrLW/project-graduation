@@ -7,13 +7,12 @@
 const mongoose = require('mongoose');
 const async = require('async');
 mongoose.connect('mongodb://test:test@localhost:27017/chatroom');
-let UserModel = mongoose.model('User', { name: String, pwd: String ,email:String,phone:String});
+let UserModel = mongoose.model('User', { name: String, pwd: String ,email:String,phone:String,role:String});
 
 const save = (obj) => {
     let user = new UserModel(obj);
     user.save();
 }
-
 
 const find = (obj) => {
     UserModel.find({ name: obj.name }, (err, d) => {

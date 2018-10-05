@@ -31,9 +31,10 @@ const login = async (name, pwd) => {
 }
 
 
-const regist = async (name, pwd,email,phone) => {
+const regist = async (name, pwd,email,phone,role) => {
     console.log('进入注册方法');
-    let u = new UserModel({name:name,pwd:pwd,email:email,phone:phone});
+    console.log('role:',role);
+    let u = new UserModel({name:name,pwd:pwd,email:email,phone:phone,role:role});
     let result = await u.save()
     console.log(result);
 }
@@ -44,10 +45,11 @@ router.get('/regist', async (req, res) => {
     let captcha = req.query.captcha;
     let email = req.query.email;
     let phone = req.query.phone;
+    let role = req.query.role ;
 
     console.log(name,pwd);
     
-    let data = await regist(name, pwd,email,phone);
+    let data = await regist(name, pwd,email,phone,role);
     if (data)
         res.send({ 'status': 'success' })
     else

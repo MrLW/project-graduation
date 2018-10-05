@@ -1,71 +1,84 @@
 /**
- *  主页面
+ *  登陆之后的主页面
  */
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import React,{Component} from 'react'
-import { Card } from 'antd';
-import ReactDOM from 'react-dom'
-import { Link } from 'react-router-3';
-const FormItem = Form.Item;
-
-class NormalLoginForm extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log(values);
-        fetch(`/user/login?name=${values.userName}&pwd=${values.password}`,{method:'get'}).then((resp)=>resp.json()).then((data)=>{
-          let status = data.status ;
-          if(status === 'success')alert('登陆成功');
-          else alert('登陆失败');
-        })
-      }
-    });
-  }
-
-  render() {
-    const { getFieldDecorator } = this.props.form;
-    return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
-        <FormItem>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
-        <FormItem>
-          {/* {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )} */}
-          {/* <a className="login-form-forgot" href="">Forgot password</a> */}
-          <Button type="primary" htmlType="submit" className="login-form-button" style={{width:350 }}>
-            Log in
-          </Button>
-          {/* Or <a href="">register now!</a> */}
-        </FormItem>
-      </Form>
-    );
-  }
-}
-
-const WrapNormalLoginForm = Form.create()(NormalLoginForm);
+import React, { Component } from 'react';
+import { Layout, Menu, Icon } from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 
 class Main extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: this.props.location.query.user
+    }
+  }
+
   render() {
     return (
       <div>
-          <h1>主页</h1>
+        <Layout>
+          <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
+            <div className="logo" />
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+              <Menu.Item key="1">
+                <Icon type="user" />
+                <span className="nav-text">{this.state.user}</span>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Icon type="video-camera" />
+                <span className="nav-text">nav 2</span>
+              </Menu.Item>
+              <Menu.Item key="3">
+                <Icon type="upload" />
+                <span className="nav-text">nav 3</span>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Icon type="bar-chart" />
+                <span className="nav-text">nav 4</span>
+              </Menu.Item>
+              <Menu.Item key="5">
+                <Icon type="cloud-o" />
+                <span className="nav-text">nav 5</span>
+              </Menu.Item>
+              <Menu.Item key="6">
+                <Icon type="appstore-o" />
+                <span className="nav-text">nav 6</span>
+              </Menu.Item>
+              <Menu.Item key="7">
+                <Icon type="team" />
+                <span className="nav-text">nav 7</span>
+              </Menu.Item>
+              <Menu.Item key="8">
+                <Icon type="shop" />
+                <span className="nav-text">nav 8</span>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <Layout style={{ marginLeft: 200 }}>
+            <Header style={{ background: '#fff', padding: 0 }} />
+            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+              <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+                ...
+          <br />
+                Really-slide1
+          <br />...<br />...<br />...<br />
+                long
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />...
+          <br />...<br />...<br />...<br />...<br />...<br />
+                content
+        </div>
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              Ant Design ©2018 Created by Ant UED
+      </Footer>
+          </Layout>
+        </Layout>
       </div>
     );
   }

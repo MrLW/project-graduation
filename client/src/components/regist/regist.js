@@ -1,12 +1,12 @@
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
-import React,{Component} from 'react'
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Radio, Button, AutoComplete } from 'antd';
+import React, { Component } from 'react'
 import { Card } from 'antd';
-import { Link ,hashHistory} from 'react-router-3';
+import { Link, hashHistory } from 'react-router-3';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
-
+const RadioGroup = Radio.Group;
 const residences = [{
   value: 'zhejiang',
   label: 'Zhejiang',
@@ -42,14 +42,15 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        fetch(`/user/regist?name=${values.nickname}&pwd=${values.password}&captcha=${values.captcha}&email=${values.email}&phone=${values.phone}`,{method:'get'})
-        .then((res)=>res.json()).then((data)=>{
-          let status = data.status ;
-          if(status){alert('注册成功');
-          hashHistory.push( '/login',null)
-        }
-          else alert('注册失败');
-        })
+        fetch(`/user/regist?name=${values.nickname}&pwd=${values.password}&captcha=${values.captcha}&email=${values.email}&phone=${values.phone}&role=${values.role}`, { method: 'get' })
+          .then((res) => res.json()).then((data) => {
+            let status = data.status;
+            if (status) {
+              alert('注册成功');
+              hashHistory.push('/login', null)
+            }
+            else alert('注册失败');
+          })
       }
     });
   }
@@ -84,6 +85,13 @@ class RegistrationForm extends React.Component {
       autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
     }
     this.setState({ autoCompleteResult });
+  }
+
+  onChange = (e) => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
   }
 
   render() {
@@ -197,7 +205,22 @@ class RegistrationForm extends React.Component {
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           )}
         </FormItem>
-       
+        
+        <FormItem 
+              {...formItemLayout}
+              label="用户类型"
+              className="collection-create-form_last-form-item">
+              {getFieldDecorator('role', {
+                initialValue: 'admin',
+              })(
+                <Radio.Group>
+                  <Radio value={"admin"}>管理员</Radio>
+                  <Radio value={"teacher"}>教师</Radio>
+                  <Radio value={"student"}>学生</Radio>
+                </Radio.Group>
+              )}
+            </FormItem>
+
         <FormItem
           {...formItemLayout}
           label="验证码"
@@ -229,14 +252,17 @@ const WrapRegistrationForm = Form.create()(RegistrationForm);
 class Regist extends Component {
   render() {
     return (
-      <Card
-        title="毕业设计选题系统"
-        extra={<Link to={`/login`}>登陆</Link>}
-        style={{ width: 400,marginLeft:550,marginTop:100 }}
-      >
-        <WrapRegistrationForm/>
-      </Card>
+      <div className="App-header">
+
+        <Card
+          title="毕业设计选题系统"
+          extra={<Link to={`/login`}>登陆</Link>}
+          style={{ width: 400, marginLeft: 550, marginTop: 100 }}
+        >
+          <WrapRegistrationForm />
+        </Card>
+      </div>
     );
   }
 }
-export default Regist ;
+export default Regist;

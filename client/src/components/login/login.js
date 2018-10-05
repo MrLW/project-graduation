@@ -2,6 +2,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import React, { Component } from 'react'
 import { Card } from 'antd';
 import ReactDOM from 'react-dom'
+
 import { Link, hashHistory } from 'react-router-3';
 const FormItem = Form.Item;
 
@@ -15,7 +16,12 @@ class NormalLoginForm extends React.Component {
           let status = data.status;
           if (status === 'success') {
             alert('登陆成功');
-            hashHistory.push('/index');
+            // router传递参数时,可用如下方式,参数必须是:query
+            let path = {
+              pathname: '/index',
+              query: { user: values.userName }
+            }
+            hashHistory.push(path);
           }
           else alert('登陆失败');
         })
@@ -58,19 +64,16 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
-
 const WrapNormalLoginForm = Form.create()(NormalLoginForm);
-
 class Login extends Component {
   render() {
     return (
-      <div>
+      <div className="App-header">
         <Card
           title="毕业设计选题系统"
           extra={<Link to={`/regist`}>注册</Link>}
           style={{ width: 400, marginLeft: 550, marginTop: 100 }}
         >
-
           <WrapNormalLoginForm />
         </Card>
       </div>
