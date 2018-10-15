@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {  Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import Login from './components/login/login.js';
 import Regist from './components/regist/regist.js'

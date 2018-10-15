@@ -27,6 +27,11 @@ npm start
 老师和学生之间是一对一的关系,一个学生只能向一个老师报名,一个老师也只能收留一个学生.
 一个学生可以选择两个题目,但是最后只做一个题目作为他的最终方案,可理解为第一志愿和第二志愿.
 
+## AntDesign集成工具
+```
+npm install ant-design-pro-cli -g a
+```
+
 ### 路由传递参数
 A页面通过设置hashHistory.push(obj)中的obj的query属性
 ```

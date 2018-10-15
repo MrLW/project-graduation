@@ -10,4 +10,6 @@ package-lock\.json
 
 config\.js
 !model/config.js
+my-project
+react-antd-admin
 

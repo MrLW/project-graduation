@@ -1,0 +1,6 @@
+{
+    "index":1,
+    "name":"我的中心",
+    "Icon":"user",
+    "authority":["admin","teacher","student"]
+}
